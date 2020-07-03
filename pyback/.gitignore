@@ -7,5 +7,5 @@ package-lock.json
 .vscode
 .idea
 backend/pyback/db.sqlite3
-backend/pyback/media
+backend/pyback/media/product/*
 

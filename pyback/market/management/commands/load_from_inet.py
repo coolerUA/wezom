@@ -18,7 +18,8 @@ STOP_WORDS = ['Безопасная', 'скидка']
 def get_product_description(link, category):
     URL = 'https://tainabox.com.ua'
     print('Start importing from %s' % URL+link)
-    rez = requests.get(URL + link, verify=False)
+    # rez = requests.get(URL + link, verify=False)
+    rez = requests.get(URL + link)
     soup = BeautifulSoup(rez.text, 'html.parser')
 
     for desc in soup.findAll('div', {'class': 'product__big-item'}):
@@ -29,9 +30,9 @@ def get_product_description(link, category):
 
         in_stop = False
         for w in STOP_WORDS:
-            if name.find(w) > -1:
+            if name.text.find(w) > -1:
                 in_stop = True
-            if consist.find(w) > -1:
+            if consist.text.find(w) > -1:
                 in_stop = True
 
         if not in_stop:
@@ -61,7 +62,8 @@ def get_product_description(link, category):
 def get_products(link, category):
     URL = 'https://tainabox.com.ua'
     print('Start importing from %s' % URL+link)
-    rez = requests.get(URL + link, verify=False)
+    rez = requests.get(URL + link)
+    # rez = requests.get(URL + link, verify=False)
     html = re.sub("\"=\"\"", "=\"\"", rez.text)
     soup = BeautifulSoup(html, 'html5lib')
 
@@ -84,12 +86,13 @@ class Command(BaseCommand):
         # удаляем записи и картинки
         Category.objects.all().delete()
         Product.objects.all().delete()
-        # shutil.rmtree('%s/media' % BASE_DIR)
+        # shutil.rmtree('%s/media/product' % BASE_DIR)
 
         # достаем главную страницу и парсим
         URL = 'https://tainabox.com.ua'
         print('Start importing from %s' % URL)
-        rez = requests.get(URL, verify=False)
+        rez = requests.get(URL)
+        # rez = requests.get(URL, verify=False)
         soup = BeautifulSoup(rez.text, 'html.parser')
 
         # находим нужный див и в нем картинки
