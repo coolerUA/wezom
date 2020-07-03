@@ -1,0 +1,71 @@
+#app-center {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+mat-card-title {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px !important;
+}
+.name {
+    width: 100px;
+    //overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px !important;
+}
+
+.description {
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+mat-card-subtitle {
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.example-header-image {
+    //position: absolute;
+    //top: 0;
+    //left: 50%;
+    //margin-right: -50%;
+    //transform: translate(-50%, 0%);
+    //-ms-transform: translate(-50%, 0%);
+    //-webkit-transform: translate(-50%, 0%);
+    //-moz-transform: translate(-50%, 0%);
+    //-o-transform: translate(-50%, 0%);
+
+}
+
+.mat-button.mat-primary,
+.mat-stroked-button.mat-primary {
+    color: #155724;
+}
+.mat-button.mat-primary:hover,
+.mat-stroked-button.mat-primary:hover {
+  background-color: #f0fff3;
+}
+
+.mat-raised-button.mat-primary,
+.mat-flat-button.mat-primary,
+.mat-fab.mat-primary,
+.mat-mini-fab.mat-primary {
+  color: #f0fff3;
+  background-color: #155724;
+}
+
+.mat-icon-button.mat-primary {
+  color:#155724;
+}

@@ -1,0 +1,22 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-toolbar color="primary">
+   <mat-toolbar-row>
+     <!--  <span>HOME</span> -->
+      <span><a mat-button href="/">HOME</a></span>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/about">About</a>
+      <a mat-button routerLink="/contacts">Contacts</a>
+   </mat-toolbar-row>
+</mat-toolbar>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle *ngFor="let item of categories"
+
+      [routerLink]="['catalog/',item.id]"
+      value="item.name"
+      >
+        {{ item.name }}
+      </mat-button-toggle>
+
+</mat-button-toggle-group>
+
+<router-outlet></router-outlet>
