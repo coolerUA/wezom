@@ -7,17 +7,20 @@ import requests
 import urllib.request
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import time
 import random
+import shutil
+from pyback.settings import BASE_DIR
+
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 STOP_WORDS = ['Безопасная', 'скидка']
 
 
 def get_product_description(link, category):
     URL = 'https://tainabox.com.ua'
-    print('Start importing from %s' % URL+link)
+    print('Start importing from %s' % URL + link)
     # rez = requests.get(URL + link, verify=False)
     rez = requests.get(URL + link)
     soup = BeautifulSoup(rez.text, 'html.parser')
@@ -61,11 +64,10 @@ def get_product_description(link, category):
 
 def get_products(link, category):
     URL = 'https://tainabox.com.ua'
-    print('Start importing from %s' % URL+link)
+    print('Start importing from %s' % URL + link)
     rez = requests.get(URL + link)
     # rez = requests.get(URL + link, verify=False)
-    html = re.sub("\"=\"\"", "=\"\"", rez.text)
-    soup = BeautifulSoup(html, 'html5lib')
+    soup = BeautifulSoup(rez.text, 'html.parser')
 
     for prod in soup.find('div', {'class': 'dishes-box'}).findAll('div', {'class': 'product__item__dish-item'}):
         for dish in prod.find('div', {'class': 'dish-top-img'}):
@@ -75,7 +77,7 @@ def get_products(link, category):
                 if isinstance(dish, Tag):
                     taga = dish.prettify(formatter="html")
                 link = re.search(r'href="([A-Za-z0-9\/-]+)"', taga)
-                time.sleep(random.randint(1,5))
+                time.sleep(random.randint(1, 5))
                 get_product_description(link.group(1), category)
 
 
@@ -86,7 +88,10 @@ class Command(BaseCommand):
         # удаляем записи и картинки
         Category.objects.all().delete()
         Product.objects.all().delete()
-        # shutil.rmtree('%s/media/product' % BASE_DIR)
+        try:
+            shutil.rmtree('%s/media/product' % BASE_DIR)
+        except FileNotFoundError:
+            pass
 
         # достаем главную страницу и парсим
         URL = 'https://tainabox.com.ua'
@@ -99,7 +104,7 @@ class Command(BaseCommand):
         content = soup.find('div', {'id': 'header-custom-middle-block'})
         for menu in content.findAll('ul', {'class': 'header__mid-menu'}):
             for category in menu.findAll('span', {'class': 'hlink'}):
-                time.sleep(random.randint(1,5))
+                time.sleep(random.randint(1, 5))
                 c = Category()
                 c.name = category.text
                 c.save()

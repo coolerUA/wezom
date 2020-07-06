@@ -1,0 +1,32 @@
+#!/bin/bash
+
+cd angular
+
+# install all
+npm install 
+
+cd ../
+
+cd pyback
+
+# initializing virtual env
+virtualenv -p /usr/bin/python3 pybackvenv
+
+# activating virtualenv
+source ./pybackvenv/bin/activate
+
+# install requirements
+python -m pip install -r requirements.txt
+
+# create migrations
+python manage.py makemigrations
+
+# create and apply migrations on database
+python manage.py migrate
+
+# create superuser
+python manage.py createsuperuser
+
+# load into db products and categories
+python manage.py load_from_inet
+

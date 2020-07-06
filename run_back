@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd pyback
+source ./pybackvenv/bin/activate
+# start server
+python manage.py runserver 8000

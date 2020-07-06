@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd angular
+
+# start serve
+ng serve
