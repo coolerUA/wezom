@@ -8,6 +8,8 @@ npm install
 cd ../
 
 cd pyback
+# create media folder
+mkdir media
 
 # initializing virtual env
 virtualenv -p /usr/bin/python3 pybackvenv
