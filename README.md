@@ -31,6 +31,10 @@ Ceate superuser
 ```
 python manage.py createsuperuser
 ```
+Create folder for images
+```
+mkdir media
+```
 Load into db products and categories
 ```
 python manage.py load_from_inet
