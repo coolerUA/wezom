@@ -17,7 +17,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def __str__(self):
-        return '%s (%s)' % (self.name, self.category)
+        return '%s' % self.name
 
 
 class Product(models.Model):
@@ -41,10 +41,10 @@ class Product(models.Model):
     @property
     def product_thumbnail(self):
         try:
-            return get_thumbnailer(self.image).get_thumbnail({
+            return mark_safe('<img src="%s" />' % get_thumbnailer(self.image).get_thumbnail({
                 'size': (THUMBNAIL_HEIGTH, THUMBNAIL_WIDTH),
                 'box': (THUMBNAIL_HEIGTH, THUMBNAIL_WIDTH),
                 'crop': 'smart',
-            }).url
+            }).url)
         except:
-            return 'noimage.png'
+            return mark_safe('<img src="noimage.png" />')
